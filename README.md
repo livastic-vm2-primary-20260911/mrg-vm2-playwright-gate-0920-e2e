@@ -1,2 +1,3 @@
-# mrg-vm2-playwright-gate-0920-e2e
-VM2 controlled Playwright quarantine required-check E2E fixture
+# VM2 controlled Mergify Playwright required-check fixture
+
+Controlled bug-bounty reproduction repository. No production application data.
