@@ -1,0 +1,20 @@
+scopes:
+  source: manual
+
+merge_queue:
+  mode: serial
+
+queue_rules:
+  - name: default
+    queue_conditions: []
+    merge_conditions:
+      - check-success = VM2_MQMETA_NEVER_GREEN_Q6R3
+
+pull_request_rules:
+  - name: VM2 MQ metadata sensitive observer Q6R3
+    conditions:
+      - title ~= VM2_MQMETA_SCOPE_Q6R3
+      - scope = sensitive
+    actions:
+      comment:
+        message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
