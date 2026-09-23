@@ -1,0 +1,56 @@
+name: VM2 Official MQ Metadata Scope Probe
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+
+jobs:
+  scope-probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout trusted base
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch PR head as Git data only
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin "+refs/pull/${PR_NUMBER}/head:refs/remotes/origin/vm2-pr-head"
+
+      - name: Write trusted scope config
+        shell: bash
+        run: |
+          cat >/tmp/vm2-scopes-q6r3.yml <<'YAML'
+          scopes:
+            source:
+              files:
+                sensitive:
+                  include:
+                    - sensitive/**
+                other:
+                  include:
+                    - other/**
+          YAML
+
+      - name: Official Mergify scope detection
+        id: scopes
+        uses: Mergifyio/gha-mergify-ci@0fc785ffb514dd34f73b198f1fbeb56bebecc789
+        with:
+          action: scopes
+          mergify_config_path: /tmp/vm2-scopes-q6r3.yml
+          mergify_cli_version: 2026.7.21.1
+
+      - name: Record safe provenance outputs
+        env:
+          SCOPES: ${{ steps.scopes.outputs.scopes }}
+          BASE: ${{ steps.scopes.outputs.base }}
+          HEAD: ${{ steps.scopes.outputs.head }}
+        shell: bash
+        run: |
+          printf 'VM2_SCOPES=%s\nVM2_BASE=%s\nVM2_HEAD=%s\n' "$SCOPES" "$BASE" "$HEAD"
