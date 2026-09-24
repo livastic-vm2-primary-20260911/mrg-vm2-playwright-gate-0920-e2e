@@ -1,0 +1,25 @@
+name: VM2 external-fork commit-scope binding U7P5
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probe Mergify CI key and commit-scope endpoint
+        env:
+          MERGIFY_TOKEN: ${{ secrets.MERGIFY_BILLINGFRESH_U7P5 }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          app_status=$(curl -sS -o /tmp/app.json -w '%{http_code}'             -H 'Accept: application/json'             -H "Authorization: Bearer ${MERGIFY_TOKEN}"             https://api.mergify.com/v1/application)
+          echo "APPLICATION_STATUS=${app_status}"
+          python3 - <<'PY'
+          import json
+          d=json.load(open('/tmp/app.json'))
+          print(json.dumps({k:d.get(k) for k in ('id','name','scope','account_scope')},sort_keys=True))
+          PY
+          commit_status=$(curl -sS -o /tmp/commit-scope-body.txt -w '%{http_code}' -X PUT             -H 'Content-Type: application/json'             -H "Authorization: Bearer ${MERGIFY_TOKEN}"             --data '{"scopes":["vm2-extfork-u7p5"],"all_scopes":false}'             https://api.mergify.com/v1/repos/livastic-vm2-billing-fresh-u6k2-260916/mrg-vm2-freeze-lowpriv2-0924-m4q7/commits/67612d6604a321eddfaadcf14dfe046c35896c44/scopes)
+          echo "COMMIT_SCOPE_STATUS=${commit_status}"
+          echo "COMMIT_SCOPE_BODY_BYTES=$(wc -c </tmp/commit-scope-body.txt)"
