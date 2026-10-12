@@ -5,7 +5,6 @@ queue_rules:
   - name: vm2-draftbot-current-controlled-261012
     batch_size: 1
     max_checks_retries: 1
-    draft_bot_account: livastic-vm2-primary-20260911
     queue_conditions:
       - base = vm2-draftbot-base-261012
       - title = VM2_DRAFTBOT_CURRENT_261012
