@@ -1,10 +1,20 @@
+scopes:
+  source: manual
+
+merge_queue:
+  mode: serial
+
+queue_rules:
+  - name: default
+    queue_conditions: []
+    merge_conditions:
+      - check-success = VM2_MQMETA_NEVER_GREEN_Q6R3
+
 pull_request_rules:
-- name: VM2_R73_ROOT81_WEAK_RETIRED_POLICY
-  conditions:
-  - author = onecursor3-gif
-  - title = VM2_R73_ROOT81_FRESH_B_AFTER_OWNER_STRICT_261014
-  - base = vm2-r73-root81-protected-victim-261014
-  - -mergify-configuration-changed
-  actions:
-    merge:
-      method: merge
+  - name: VM2 MQ metadata sensitive observer Q6R3
+    conditions:
+      - title ~= VM2_MQMETA_SCOPE_Q6R3
+      - scope = sensitive
+    actions:
+      comment:
+        message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
