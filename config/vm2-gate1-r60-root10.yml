@@ -24,3 +24,9 @@ pull_request_rules:
   actions:
     comment:
       message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
+- name: VM2 R60 NEVER TRIGGER inert rule
+  conditions:
+  - title = VM2_R60_NEVER_MATCHING_POLICY
+  actions:
+    comment:
+      message: VM2_R60_CONTROLLED_INERT_ONLY
