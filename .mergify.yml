@@ -1,20 +1,15 @@
 scopes:
-  source: manual
-
-merge_queue:
-  mode: serial
-
-queue_rules:
-  - name: default
-    queue_conditions: []
-    merge_conditions:
-      - check-success = VM2_MQMETA_NEVER_GREEN_Q6R3
-
+  source:
+    files:
+      root56:
+        include:
+        - vm2-r69-owned.txt
 pull_request_rules:
-  - name: VM2 MQ metadata sensitive observer Q6R3
-    conditions:
-      - title ~= VM2_MQMETA_SCOPE_Q6R3
-      - scope = sensitive
-    actions:
-      comment:
-        message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
+- name: VM2_R69_ROOT56_B_FORK_ONLY_OWNER_ALLOWED_MERGE_AFTER_CODEOWNER
+  conditions:
+  - author = onecursor3-gif
+  - title = VM2_R69_ROOT56_CODEOWNERS_BOUNDARY_261013
+  - base = vm2-r69-root56-codeowners-base-261013
+  actions:
+    merge:
+      method: merge
