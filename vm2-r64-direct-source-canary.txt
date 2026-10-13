@@ -1,0 +1,1 @@
+VM2 R64 direct-literal configuration security revoke control. No workflow or active code.
