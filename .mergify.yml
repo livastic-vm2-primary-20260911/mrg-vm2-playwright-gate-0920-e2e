@@ -1,40 +1,20 @@
 scopes:
-  source:
-    files:
-      r74_queued:
-        include:
-        - vm2-r74-root69-marker.txt
+  source: manual
+
 merge_queue:
-  queued_label: queued
-  dequeued_label: dequeued
-  max_parallel_checks: 1
+  mode: serial
+
 queue_rules:
-- name: default
-  merge_method: merge
-  batch_size: 1
-  checks_timeout: null
-  queue_conditions: []
-  merge_conditions:
-  - check-success = vm2-r74-root69-never-green-check
+  - name: default
+    queue_conditions: []
+    merge_conditions:
+      - check-success = VM2_MQMETA_NEVER_GREEN_Q6R3
+
 pull_request_rules:
-- name: VM2_R74_R69_B_AUTOQUEUE_NORMAL
-  conditions:
-  - author = onecursor3-gif
-  - title = VM2_R74_ROOT69_B_READER_QUEUEDLABEL_OWNER_DEQUEUE_261014
-  - base = vm2-r74-root69-victim-261014
-  - -mergify-configuration-changed
-  actions:
-    queue:
-      name: default
-- name: VM2_R74_R69_POST_DEQUEUE_STALE_QUEUED_LABEL_OWNER_DENY
-  conditions:
-  - author = onecursor3-gif
-  - title = VM2_R74_ROOT69_B_READER_QUEUEDLABEL_OWNER_DEQUEUE_261014
-  - base = vm2-r74-root69-victim-261014
-  - -mergify-configuration-changed
-  - label = queued
-  - -queue-name = default
-  - queue-dequeue-reason = pr-manually-dequeued
-  actions:
-    merge:
-      method: merge
+  - name: VM2 MQ metadata sensitive observer Q6R3
+    conditions:
+      - title ~= VM2_MQMETA_SCOPE_Q6R3
+      - scope = sensitive
+    actions:
+      comment:
+        message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
