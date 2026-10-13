@@ -1,21 +1,20 @@
 scopes:
-  source:
-    files:
-      r70:
-        include:
-        - vm2-r69-owned.txt
+  source: manual
+
+merge_queue:
+  mode: serial
+
 queue_rules:
-- name: r70-main
-  merge_method: merge-batch
-  batch_size: 1
-  queue_conditions: []
-  merge_conditions: []
+  - name: default
+    queue_conditions: []
+    merge_conditions:
+      - check-success = VM2_MQMETA_NEVER_GREEN_Q6R3
+
 pull_request_rules:
-- name: VM2_R70_ROOT56_APPROVED_OWNER_STANDING_GUARDED_QUEUE
-  conditions:
-  - author = onecursor3-gif
-  - title = VM2_R70_ROOT56_MAIN_QUEUE_BIG_261013
-  - base = main
-  actions:
-    queue:
-      name: r70-main
+  - name: VM2 MQ metadata sensitive observer Q6R3
+    conditions:
+      - title ~= VM2_MQMETA_SCOPE_Q6R3
+      - scope = sensitive
+    actions:
+      comment:
+        message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
