@@ -10,7 +10,7 @@ merge_queue:
   max_parallel_checks: 1
 queue_rules:
 - name: default
-  merge_method: merge-batch
+  merge_method: merge
   batch_size: 1
   checks_timeout: null
   queue_conditions: []
