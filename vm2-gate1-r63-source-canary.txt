@@ -1,0 +1,2 @@
+VM2_GATE1_R63_B_READ_FORK_SOURCE_20261013
+This file is a disposable harmless source canary.
