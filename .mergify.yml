@@ -1,6 +1,10 @@
 scopes:
   source:
-    manual: null
+    files:
+      root19_canary:
+        include:
+        - playwright.config.mjs
+        - vm2-r66-root19-harmless-source-marker.txt
 merge_queue:
   mode: serial
 queue_rules:
