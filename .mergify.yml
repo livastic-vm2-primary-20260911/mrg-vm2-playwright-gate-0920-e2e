@@ -1,20 +1,23 @@
 scopes:
-  source: manual
-
-merge_queue:
-  mode: serial
-
+  source:
+    files:
+      root62_normal:
+        include:
+        - vm2-root62-normal/**
 queue_rules:
-  - name: default
-    queue_conditions: []
-    merge_conditions:
-      - check-success = VM2_MQMETA_NEVER_GREEN_Q6R3
-
+- name: root62-normal
+  merge_method: merge-batch
+  batch_size: 2
+  batch_max_wait_time: 10 min
+  checks_timeout: null
+  allow_queue_branch_edit: false
+  queue_conditions: []
+  merge_conditions:
+  - check-success = vm2-r67-holdnever
 pull_request_rules:
-  - name: VM2 MQ metadata sensitive observer Q6R3
-    conditions:
-      - title ~= VM2_MQMETA_SCOPE_Q6R3
-      - scope = sensitive
-    actions:
-      comment:
-        message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
+- name: VM2_R67_ROOT62_OWNER_STANDING_NORMAL_BRANCH_QUEUE
+  conditions:
+  - base = vm2-r67-root62-protected-genb
+  actions:
+    queue:
+      name: root62-normal
