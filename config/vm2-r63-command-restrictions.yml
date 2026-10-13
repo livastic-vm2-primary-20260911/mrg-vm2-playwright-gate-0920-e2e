@@ -19,4 +19,4 @@ pull_request_rules:
 commands_restrictions:
   copy:
     conditions:
-    - sender = onecursor3-gif
+    - sender-permission >= write
