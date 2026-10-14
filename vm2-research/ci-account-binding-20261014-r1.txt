@@ -1,0 +1,2 @@
+VM2 exact-current authorized-scope versus cross-account CI scope research, 2026-10-14.
+Inert text only: no workflow or configuration changes. The test PR must be closed unmerged and its temporary branch deleted.
