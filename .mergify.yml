@@ -19,3 +19,25 @@ pull_request_rules:
     actions:
       comment:
         message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
+
+  - name: VM2 R140 ordinary deployment signal, test-only
+    conditions:
+      - author = onecursor3-gif
+      - title = VM2_R140_DEPLOY_APP_PROVENANCE_20261015
+      - base = main
+      - deployment-success = vm2-r103-inert-env-20261015
+    actions:
+      label:
+        add:
+          - vm2-r140-bare-deployment-observed
+
+  - name: VM2 R140 app-pinned deployment provenance, test-only
+    conditions:
+      - author = onecursor3-gif
+      - title = VM2_R140_DEPLOY_APP_PROVENANCE_20261015
+      - base = main
+      - deployment-success = @mergify/vm2-r103-inert-env-20261015
+    actions:
+      label:
+        add:
+          - vm2-r140-mergify-app-pinned
