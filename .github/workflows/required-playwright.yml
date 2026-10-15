@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   gate:
-    name: mergify-playwright-gate
+    name: 'VM2_R80_UNTRUSTED_<b data-vm2-r80="literal">SAFE_JOB</b>'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
