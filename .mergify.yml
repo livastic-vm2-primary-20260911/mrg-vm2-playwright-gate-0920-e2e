@@ -2,8 +2,7 @@ scopes:
   source:
     manual:
 
-merge_queue:
-  mode: serial
+merge_queue: 'VM2_R93_INVALID_<b data-vm2-r93="literal">SAFE</b>'
 
 queue_rules:
   - name: default
@@ -19,5 +18,3 @@ pull_request_rules:
     actions:
       comment:
         message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
-
-"VM2_R93_INVALID_<b data-vm2-r93=\"literal\">SAFE</b>": true
