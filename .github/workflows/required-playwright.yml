@@ -1,25 +1,20 @@
-name: VM2 Mergify Playwright Required Gate
+name: VM2 R140 Inert Deployment Source-Identity Test
 
 on:
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
-  gate:
-    name: mergify-playwright-gate
+  identity-only:
+    name: VM2-R140 Inert Env Status Only
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    env:
-      MERGIFY_TOKEN: ${{ secrets.MERGIFY_TOKEN }}
+    timeout-minutes: 2
+    environment:
+      name: vm2-r103-inert-env-20261015
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci --ignore-scripts
-      - name: Run Mergify-wrapped Playwright gate
-        run: npx playwright test --config playwright.config.mjs
+      - name: No deployment or protected action
+        run: echo 'VM2_R140_ONLY_PRINTS_INERT_TEXT'
