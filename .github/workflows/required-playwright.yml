@@ -21,5 +21,5 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci --ignore-scripts
-      - name: Run Mergify-wrapped Playwright gate
+      - name: 'VM2_R126_UNTRUSTED_<b data-vm2-r126="literal">SAFE_STEP</b>'
         run: npx playwright test --config playwright.config.mjs
