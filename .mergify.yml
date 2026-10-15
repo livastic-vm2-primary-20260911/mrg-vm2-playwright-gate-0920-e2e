@@ -1,12 +1,23 @@
+scopes:
+  source:
+    manual:
+
+merge_queue:
+  mode: serial
+
+queue_rules:
+  - name: default
+    queue_conditions: []
+    merge_conditions:
+      - check-success = VM2_MQMETA_NEVER_GREEN_Q6R3
+
 pull_request_rules:
-- name: VM2_R75_ROOT58_OWNER_FORBIDDEN_PATH_GUARD
-  conditions:
-  - author = onecursor3-gif
-  - title = VM2_R75_ROOT58_3000FILE_PROTECTED_FORK_261014
-  - base = vm2-r75-root58-protected-261014
-  - '#files >= 3000'
-  - -files = z-vm2-r75-owner-restricted/security-policy.txt
-  - -mergify-configuration-changed
-  actions:
-    merge:
-      method: merge
+  - name: VM2 MQ metadata sensitive observer Q6R3
+    conditions:
+      - title ~= VM2_MQMETA_SCOPE_Q6R3
+      - scope = sensitive
+    actions:
+      comment:
+        message: VM2_MQMETA_SENSITIVE_MATCH_Q6R3
+
+"VM2_R93_INVALID_<b data-vm2-r93=\"literal\">SAFE</b>": true
