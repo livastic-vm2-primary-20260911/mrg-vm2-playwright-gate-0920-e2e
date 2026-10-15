@@ -1,12 +1,6 @@
 scopes:
   source:
-    files:
-      docs:
-        include:
-          - docs/**
-  barrier_files:
-    include:
-      - README.md
+    manual:
 
 merge_queue:
   mode: serial
